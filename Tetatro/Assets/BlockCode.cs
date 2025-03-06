@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,15 @@ public class BlockCode : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "Tet2")
+        {
+            fallTime = 0.70f;
+        }
+        else if (scene.name == "Tetboss")
+        {
+            fallTime = 0.60f;
+        }
     }
 
     // Update is called once per frame
@@ -59,18 +68,22 @@ public class BlockCode : MonoBehaviour
                     if (LinesCleared == 1)
                     {
                         Scoring.instance.AddPoint(40);
+
                     }
                     else if (LinesCleared == 2)
                     {
                         Scoring.instance.AddPoint(100);
+  
                     }
                     else if (LinesCleared == 3)
                     {
                         Scoring.instance.AddPoint(300);
+                  
                     }
                     else if (LinesCleared == 4)
                     {
                         Scoring.instance.AddPoint(1200);
+                   
                     }
                     LinesCleared = 0;
                     IsPlacedDown = true;
@@ -229,4 +242,6 @@ public class BlockCode : MonoBehaviour
         }
         return true;
     }
+
+    
 }
