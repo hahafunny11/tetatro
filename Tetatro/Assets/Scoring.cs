@@ -11,8 +11,9 @@ public class Scoring : MonoBehaviour
 
     public Text reqscoreText;
     public Text scoreText;
+    public Text speed;
 
-    int reqscore = 600;
+    int reqscore = GlobalVariables.baseScoreReq;
     int score = 0;
     private void Awake()
     {
@@ -22,11 +23,11 @@ public class Scoring : MonoBehaviour
     void Start()
     {
         UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "Tet2")
+        if (GlobalVariables.currentLevel % 3 == 1)
         {
             reqscore *= 2;
         }
-        else if (scene.name == "Tetboss")
+        else if (GlobalVariables.currentLevel % 3 == 2)
         {
             reqscore *= 3;
         }
@@ -39,19 +40,65 @@ public class Scoring : MonoBehaviour
     {
         if (score >= reqscore)
         {
-            UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
-            if (scene.name == "Tetris")
-            {
+            /*GlobalVariables.totalLevel += 1;
+
+            if (GlobalVariables.currentLevel == 3)
+                {
+                    GlobalVariables.currentLevel = 0;
+                }*/
                 SceneManager.LoadSceneAsync("1to2");
             }
-            else if (scene.name == "Tet2")
-            {
-                SceneManager.LoadSceneAsync("2to3");
-            }
-            else if (scene.name == "Tetboss")
-            {
-                SceneManager.LoadSceneAsync("3to1");
-            }
+        //Debug.Log(GlobalVariables.gamespeedMult);
+        if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
+        {
+            score = reqscore;
+        }
+        switch (GlobalVariables.gamespeedMult)
+        {
+            case 0f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">";
+                break;
+
+            case 0.1f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>";
+                break;
+
+            case 0.2f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>";
+                break;
+
+            case 0.3f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>";
+                break;
+
+            case 0.4f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>";
+                break;
+
+            case 0.5f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>>";
+                break;
+
+            case 0.575f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>>>";
+                break;
+
+            case 0.65f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>>>>";
+                break;
+
+            case 0.7f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>>>>>";
+                break;
+
+            case 0.75f:
+                speed.text = "Game Speed" + System.Environment.NewLine + ">>>>>>>>>>";
+                break;
+
+
+            /*default:
+                speed.text = "Game Speed" + System.Environment.NewLine + "ERROR: OOPS";
+                break;*/
         }
     }
     public void AddPoint(int pointValue)

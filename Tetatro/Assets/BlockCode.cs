@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ public class BlockCode : MonoBehaviour
 {
     public Vector3 rotationPoint;//all tetris pieces have a set point they rotate around
     private float previousTime;
+    public float startFallTime = 0.8f;
     public float fallTime = 0.8f;
     public static int height = 23;//grid size, if any blocks are placed in top 2, you lose.
     public static int width = 10;
@@ -13,21 +15,14 @@ public class BlockCode : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "Tet2")
-        {
-            fallTime = 0.70f;
-        }
-        else if (scene.name == "Tetboss")
-        {
-            fallTime = 0.60f;
-        }
+        //UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
     }
 
     // Update is called once per frame
     [System.Obsolete]
     void Update()
     {
+        fallTime = startFallTime - GlobalVariables.gamespeedMult;
         if (transform.childCount == 0) Destroy(this.gameObject); //if all of the parts of a block are removed, delete the block parent. (otherwise the erased blocks would be wasting memory...)
         if (!IsPlacedDown)
         {
@@ -68,22 +63,42 @@ public class BlockCode : MonoBehaviour
                     if (LinesCleared == 1)
                     {
                         Scoring.instance.AddPoint(40);
+                        GlobalVariables.clearedLines += 1;
 
                     }
                     else if (LinesCleared == 2)
                     {
                         Scoring.instance.AddPoint(100);
-  
+                        GlobalVariables.clearedLines += 2;
+
                     }
                     else if (LinesCleared == 3)
                     {
                         Scoring.instance.AddPoint(300);
-                  
+                        GlobalVariables.clearedLines += 3;
+
                     }
                     else if (LinesCleared == 4)
                     {
                         Scoring.instance.AddPoint(1200);
-                   
+                        GlobalVariables.clearedLines += 4;
+
+                    }
+                    if (GlobalVariables.clearedLines >= 10 && LinesCleared != 0)
+                    {
+                        if (GlobalVariables.gamespeedMult < .3f){
+                            GlobalVariables.gamespeedMult += .1f;
+                        }
+                        else if (GlobalVariables.gamespeedMult < .45f){
+                            GlobalVariables.gamespeedMult += .075f;
+                        }
+                        else if (GlobalVariables.gamespeedMult < .7f){
+                            GlobalVariables.gamespeedMult += .05f;
+                        }
+                        GlobalVariables.gamespeedMult *= 100;
+                        Math.Round(GlobalVariables.gamespeedMult);
+                        GlobalVariables.gamespeedMult /= 100;
+                        GlobalVariables.clearedLines -= 10;
                     }
                     LinesCleared = 0;
                     IsPlacedDown = true;
@@ -91,6 +106,25 @@ public class BlockCode : MonoBehaviour
                 }
                 previousTime = Time.time;
             }
+            /*if (Input.GetKeyDown(KeyCode.P))   //debug tool for testing game speed
+            {
+                if (GlobalVariables.gamespeedMult < .5f)
+                {
+                    GlobalVariables.gamespeedMult += .1f;
+                }
+                else if (GlobalVariables.gamespeedMult < .65f)
+                {
+                    GlobalVariables.gamespeedMult += .075f;
+                }
+                else if (GlobalVariables.gamespeedMult < .75f)
+                {
+                    GlobalVariables.gamespeedMult += .05f;
+                }
+                GlobalVariables.gamespeedMult *= 100;
+                Math.Round(GlobalVariables.gamespeedMult);
+                GlobalVariables.gamespeedMult /= 100;
+            }*/
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 while (IsPlacedDown == false)
@@ -106,18 +140,41 @@ public class BlockCode : MonoBehaviour
                         if (LinesCleared == 1)
                         {
                             Scoring.instance.AddPoint(40);
+                            GlobalVariables.clearedLines += 1;
                         }
                         else if (LinesCleared == 2)
                         {
                             Scoring.instance.AddPoint(100);
+                            GlobalVariables.clearedLines += 2;
                         }
                         else if (LinesCleared == 3)
                         {
                             Scoring.instance.AddPoint(300);
+                            GlobalVariables.clearedLines += 3;
                         }
                         else if (LinesCleared == 4)
                         {
                             Scoring.instance.AddPoint(1200);
+                            GlobalVariables.clearedLines += 4;
+                        }
+                        if (GlobalVariables.clearedLines >= 10 && LinesCleared != 0)
+                        {
+                            if (GlobalVariables.gamespeedMult < .3f)
+                            {
+                                GlobalVariables.gamespeedMult += .1f;
+                            }
+                            else if (GlobalVariables.gamespeedMult < .45f)
+                            {
+                                GlobalVariables.gamespeedMult += .075f;
+                            }
+                            else if (GlobalVariables.gamespeedMult < .7f)
+                            {
+                                GlobalVariables.gamespeedMult += .05f;
+                            }
+                            GlobalVariables.gamespeedMult *= 100;
+                            Math.Round(GlobalVariables.gamespeedMult);
+                            GlobalVariables.gamespeedMult /= 100;
+                            GlobalVariables.clearedLines -= 10;
                         }
                         LinesCleared = 0;
                         IsPlacedDown = true;
