@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class BlockCode : MonoBehaviour
@@ -12,10 +13,12 @@ public class BlockCode : MonoBehaviour
     public static int height = 23;//grid size, if any blocks are placed in top 2, you lose.
     public static int width = 10;
     private static Transform[,] grid = new Transform[width, height]; //collision
+    public AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -102,11 +105,12 @@ public class BlockCode : MonoBehaviour
                     }
                     LinesCleared = 0;
                     IsPlacedDown = true;
+                    audioSource.Play();
                     FindObjectOfType<SpawnBlock>().NewBlock();
                 }
                 previousTime = Time.time;
             }
-            /*if (Input.GetKeyDown(KeyCode.P))   //debug tool for testing game speed
+            if (Input.GetKeyDown(KeyCode.P))   //debug tool for testing game speed
             {
                 if (GlobalVariables.gamespeedMult < .5f)
                 {
@@ -123,7 +127,7 @@ public class BlockCode : MonoBehaviour
                 GlobalVariables.gamespeedMult *= 100;
                 Math.Round(GlobalVariables.gamespeedMult);
                 GlobalVariables.gamespeedMult /= 100;
-            }*/
+            }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -178,6 +182,7 @@ public class BlockCode : MonoBehaviour
                         }
                         LinesCleared = 0;
                         IsPlacedDown = true;
+                        audioSource.Play();
                         FindObjectOfType<SpawnBlock>().NewBlock();
                     }
                 }

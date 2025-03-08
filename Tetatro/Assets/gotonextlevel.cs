@@ -26,6 +26,7 @@ public class gotonextlevel : MonoBehaviour
                 GlobalVariables.clearedLines = 0;
                 GlobalVariables.gamespeedMult = 0;
                 GlobalVariables.baseScoreReq = 600;
+                GlobalVariables.cash = 5;
                 SceneManager.LoadSceneAsync("Tetris");
             }
             else if (scene.name == "1to2")
