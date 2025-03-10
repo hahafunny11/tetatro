@@ -38,7 +38,12 @@ public class Scoring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (score >= reqscore)
+        if (GlobalVariables.timeInFrames < 6000) {
+            GlobalVariables.timeInFrames += 1;
+            //Debug.Log(GlobalVariables.timeInFrames);
+        }
+
+            if (score >= reqscore)
         {
             /*GlobalVariables.totalLevel += 1;
 
@@ -46,8 +51,10 @@ public class Scoring : MonoBehaviour
                 {
                     GlobalVariables.currentLevel = 0;
                 }*/
-                SceneManager.LoadSceneAsync("1to2");
-            }
+            SceneManager.LoadSceneAsync("1to2");
+            score = 0; //this is done because otherwise the above line is called twice, messing with the players cash.
+                
+        }
         //Debug.Log(GlobalVariables.gamespeedMult);
         if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
         {

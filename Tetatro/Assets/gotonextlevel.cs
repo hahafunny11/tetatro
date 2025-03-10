@@ -11,7 +11,7 @@ public class gotonextlevel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
@@ -26,12 +26,16 @@ public class gotonextlevel : MonoBehaviour
                 GlobalVariables.clearedLines = 0;
                 GlobalVariables.gamespeedMult = 0;
                 GlobalVariables.baseScoreReq = 600;
-                GlobalVariables.cash = 5;
+                GlobalVariables.cash = 4;
+                GlobalVariables.timeInFrames = 0;
                 SceneManager.LoadSceneAsync("Tetris");
+                
+
             }
             else if (scene.name == "1to2")
             {
                 GlobalVariables.currentLevel += 1;
+                GlobalVariables.timeInFrames = 0;
                 if (GlobalVariables.currentLevel % 3 == 0 && GlobalVariables.currentLevel != 0)
                 {
                     GlobalVariables.baseScoreReq += 1400 * (GlobalVariables.currentLevel - 2) * (((GlobalVariables.currentLevel - 3) / 12) + 1);
