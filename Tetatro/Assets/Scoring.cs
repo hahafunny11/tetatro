@@ -12,9 +12,14 @@ public class Scoring : MonoBehaviour
     public Text reqscoreText;
     public Text scoreText;
     public Text speed;
+    public Text bonusTime;
+    public Text bonusCash;
+    public Text currentCash;
 
     int reqscore = GlobalVariables.baseScoreReq;
     int score = 0;
+    int time = 40;
+    int bonus = 5;
     private void Awake()
     {
         instance = this;
@@ -22,7 +27,7 @@ public class Scoring : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
+        //UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
         if (GlobalVariables.currentLevel % 3 == 1)
         {
             reqscore *= 2;
@@ -33,12 +38,13 @@ public class Scoring : MonoBehaviour
         }
         reqscoreText.text = "Target Score: " + reqscore.ToString();
         scoreText.text = "Current Score: " + score.ToString();
+        currentCash.text = "Cash:$" + GlobalVariables.cash.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GlobalVariables.timeInFrames < 6000) {
+        if (GlobalVariables.timeInFrames < 12000) {
             GlobalVariables.timeInFrames += 1;
             //Debug.Log(GlobalVariables.timeInFrames);
         }
@@ -54,6 +60,55 @@ public class Scoring : MonoBehaviour
             SceneManager.LoadSceneAsync("1to2");
             score = 0; //this is done because otherwise the above line is called twice, messing with the players cash.
                 
+        }
+        if (GlobalVariables.timeInFrames % 60 == 0 && bonus != 0)
+        {
+            time -= 1;
+            if (time == 0)
+            {
+                bonus -= 1;
+                if (bonus != 0)
+                {
+                    time = 40;
+                }
+            }
+            switch (time)
+            {
+                default:
+                    bonusTime.text = time.ToString();
+                    break;
+
+                case 0:
+                    bonusTime.text = "  NO BONUS";
+                    break;
+            }
+            
+            switch (bonus)
+            {
+                case 5:
+                    bonusCash.text = "$$$$$";
+                    break;
+
+                case 4:
+                    bonusCash.text = " $$$$";
+                    break;
+
+                case 3:
+                    bonusCash.text = "  $$$";
+                    break;
+
+                case 2:
+                    bonusCash.text = "   $$";
+                    break;
+
+                case 1:
+                    bonusCash.text = "    $";
+                    break;
+
+                case 0:
+                    bonusCash.text = "     ";
+                    break;
+            }
         }
         //Debug.Log(GlobalVariables.gamespeedMult);
         if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.

@@ -11,7 +11,7 @@ public class CashGet : MonoBehaviour
     int interest = 0;
     int intCheck = GlobalVariables.cash;
     int timeCash = 5;
-    int timeModify = GlobalVariables.timeInFrames/1200;
+    int timeModify = GlobalVariables.timeInFrames/2400;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
