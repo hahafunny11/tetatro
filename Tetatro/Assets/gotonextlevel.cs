@@ -34,6 +34,18 @@ public class gotonextlevel : MonoBehaviour
             }
             else if (scene.name == "1to2")
             {
+                SceneManager.LoadSceneAsync("daShop");
+            }
+            else if (scene.name == "GameOver")
+            {
+                SceneManager.LoadSceneAsync("title");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
+            if (scene.name == "daShop")
+            {
                 GlobalVariables.currentLevel += 1;
                 GlobalVariables.timeInFrames = 0;
                 if (GlobalVariables.currentLevel % 3 == 0 && GlobalVariables.currentLevel != 0)
@@ -41,15 +53,11 @@ public class gotonextlevel : MonoBehaviour
                     GlobalVariables.baseScoreReq += 1400 * (GlobalVariables.currentLevel - 2) * (((GlobalVariables.currentLevel - 3) / 12) + 1);
                     if (GlobalVariables.currentLevel > 8)
                     {
-                        GlobalVariables.baseScoreReq *= (GlobalVariables.currentLevel/3);
+                        GlobalVariables.baseScoreReq *= (GlobalVariables.currentLevel / 3);
                     }
                 }
 
                 SceneManager.LoadSceneAsync("Tetris");
-            }
-            else if (scene.name == "GameOver")
-            {
-                SceneManager.LoadSceneAsync("title");
             }
         }
     }
