@@ -28,6 +28,13 @@ public class gotonextlevel : MonoBehaviour
                 GlobalVariables.baseScoreReq = 600;
                 GlobalVariables.cash = 4;
                 GlobalVariables.timeInFrames = 0;
+                GlobalVariables.timeShave = 0;
+                GlobalVariables.baseMult = 1;
+                GlobalVariables.singleMult = 1;
+                GlobalVariables.doubleMult = 1;
+                GlobalVariables.tripleMult = 1;
+                GlobalVariables.tetrisMult = 1;
+                GlobalVariables.items.Clear();
                 SceneManager.LoadSceneAsync("Tetris");
                 
 
