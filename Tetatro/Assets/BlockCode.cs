@@ -19,6 +19,10 @@ public class BlockCode : MonoBehaviour
     {
         //UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
         audioSource = GetComponent<AudioSource>();
+        if (!ValidMove())
+        {
+            transform.position -= new Vector3(0, -1, 0);
+        }
     }
 
     // Update is called once per frame
