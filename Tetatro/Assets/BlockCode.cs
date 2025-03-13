@@ -18,12 +18,18 @@ public class BlockCode : MonoBehaviour
     public int rand = 0;
     Random random = new Random();
     private static Transform[,] grid = new Transform[width, height]; //collision
-    public AudioSource audioSource;
+    public AudioSource blockdropsfx;
+    public AudioSource blast;
+    public AudioSource lineclear;
+    //public 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
-        audioSource = GetComponent<AudioSource>();
+        AudioSource[] audioSource = GetComponents<AudioSource>();
+        blockdropsfx = audioSource[0];
+        blast = audioSource[1];
+        lineclear = audioSource[2];
         if (!ValidMove())
         {
             transform.position -= new Vector3(0, -1, 0);
@@ -192,11 +198,17 @@ public class BlockCode : MonoBehaviour
                         GlobalVariables.chain = 1;
                         GlobalVariables.sChain = 1;
                     }
-
+                    if (LinesCleared == 0)
+                    {
+                        blockdropsfx.Play();
+                    }
+                    else
+                    {
+                        lineclear.Play();
+                    }
                     LinesCleared = 0;
                     scoreGain = 0;
                     IsPlacedDown = true;
-                    audioSource.Play();
                     FindObjectOfType<SpawnBlock>().NewBlock();
                 }
                 previousTime = Time.time;
@@ -354,11 +366,17 @@ public class BlockCode : MonoBehaviour
                             GlobalVariables.chain = 1;
                             GlobalVariables.sChain = 1;
                         }
-
+                        if (LinesCleared == 0)
+                        {
+                            blockdropsfx.Play();
+                        }
+                        else
+                        {
+                            lineclear.Play();
+                        }
                         LinesCleared = 0;
                         scoreGain = 0;
                         IsPlacedDown = true;
-                        audioSource.Play();
                         FindObjectOfType<SpawnBlock>().NewBlock();
                     }
                 }
@@ -367,11 +385,11 @@ public class BlockCode : MonoBehaviour
             {
                 if (GlobalVariables.items.Contains("Nuke"))
                 {
+                    blast.Play();
                     AddToGrid();
-                    NukeCheck();
                     for (int i = height - 1; i >= 0; i--)
                     {
-                        for (int j = 0; i < width; j++)
+                        for (int j = 0; j < width; j++)
                         {
                             if (HasBlock(j, i))
                             {
@@ -388,7 +406,7 @@ public class BlockCode : MonoBehaviour
                             GlobalVariables.chain += .5;
                         }
                     }
-                    IsPlacedDown = true;
+                    NukeCheck();
                     Scoring.instance.AddPoint((int)scoreGain);
                     scoreGain = 0;
                     GlobalVariables.items.Remove("Nuke");
@@ -417,16 +435,25 @@ public class BlockCode : MonoBehaviour
     {
         for (int i = height - 1; i >= 0; i--)
         {
-            for (int j = 0; i < width; j++)
+            if (PlsWork(i))
             {
-                if (HasBlock(j, i))
-                {
-                    DeleteBlock(j,i);
-                }
+                DeleteBlock(i);
             }
+
         }
     }
 
+    bool PlsWork(int i)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (grid[j, i] != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     bool HasBlock(int j, int i)
     {
             if (grid[j, i] != null)
@@ -490,10 +517,16 @@ public class BlockCode : MonoBehaviour
         }
     }
 
-    void DeleteBlock(int j, int i)
-    { 
-        Destroy(grid[j, i].gameObject);
-        grid[j, i] = null;
+    void DeleteBlock(int i)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (grid[j, i] != null)
+            {
+                Destroy(grid[j, i].gameObject);
+                grid[j, i] = null;
+            }
+        }
     }
 
 
