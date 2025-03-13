@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Aphrodite Icon_0: -969107161186235197
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

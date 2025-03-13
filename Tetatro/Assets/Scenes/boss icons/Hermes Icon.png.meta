@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Hermes Icon_0: -3584495200036533662
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

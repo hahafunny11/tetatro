@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Chaos Upgrade_0: -5520921953661617313
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

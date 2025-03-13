@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sisyphus Icon_0: -3759159526901309510
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

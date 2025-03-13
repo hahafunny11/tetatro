@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Poseidon Icon_0: -8458819805471715380
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
