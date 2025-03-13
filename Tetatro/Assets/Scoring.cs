@@ -44,6 +44,7 @@ public class Scoring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(GlobalVariables.chain);
         if (GlobalVariables.timeInFrames < 12000) {
             GlobalVariables.timeInFrames += 1;
             //Debug.Log(GlobalVariables.timeInFrames);
@@ -114,6 +115,10 @@ public class Scoring : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
         {
             score = reqscore;
+        }
+        if (Input.GetKeyDown(KeyCode.C)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
+        {
+            GlobalVariables.cash += 1000;
         }
         switch (GlobalVariables.gamespeedMult)
         {
