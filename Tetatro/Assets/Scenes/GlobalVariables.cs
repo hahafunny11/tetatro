@@ -26,11 +26,14 @@ public class GlobalVariables
     //public static List<string> stackables = new List<string>() {"Time", "Mult"};
     //public static List<string> lineStacks = new List<string>() {"All", "Single", "Double", "Triple", "Tetris"};
     public static string[] toRemove = new string[] {"null", "null", "null" };
+    public static string[] currentShop = new string[] { "null", "null", "null" };
 
     public static List<string> bossGeneric = new List<string>();
     public static List<string> bossFinal = new List<string>();
 
     public static string currentBoss = "";
+
+    public static bool shopInfo = false;
 
     //these hashsets are for unionwiths
     public static HashSet<string> shopItems = new HashSet<string>() {"Nuke", "2Singles" ,"InARowBonus" ,"SingleChain" ,"TripleTriple" ,"MinMaxTet"};

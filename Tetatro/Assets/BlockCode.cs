@@ -222,7 +222,7 @@ public class BlockCode : MonoBehaviour
                 }
                 previousTime = Time.time;
             }
-            if (Input.GetKeyDown(KeyCode.P))   //debug tool for testing game speed
+            /*if (Input.GetKeyDown(KeyCode.P))   //debug tool for testing game speed
             {
                 if (GlobalVariables.gamespeedMult < .5f)
                 {
@@ -239,7 +239,7 @@ public class BlockCode : MonoBehaviour
                 GlobalVariables.gamespeedMult *= 100;
                 Math.Round(GlobalVariables.gamespeedMult);
                 GlobalVariables.gamespeedMult /= 100;
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.W))
             {

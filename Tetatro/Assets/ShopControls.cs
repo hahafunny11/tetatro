@@ -138,12 +138,19 @@ public class ShopControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GlobalVariables.currentShop[0] = slotsIdx[0];
+        GlobalVariables.currentShop[1] = slotsIdx[1];
+        GlobalVariables.currentShop[2] = slotsIdx[2];
         /*Debug.Log(GlobalVariables.gamespeedMult);
         if (GlobalVariables.cash >= shopCosts[currentSlot] && currentSlot != 3)
         {
             Debug.Log(slotsIdx[currentSlot] + ", " + currentSlot);
         }*/
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            GlobalVariables.shopInfo = !GlobalVariables.shopInfo;
+        }
+            if (Input.GetKeyDown(KeyCode.A))
         {
             currentSlot -= 1;
             if (currentSlot < 0)
