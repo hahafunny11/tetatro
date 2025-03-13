@@ -34,6 +34,10 @@ public class BlockCode : MonoBehaviour
         {
             transform.position -= new Vector3(0, -1, 0);
         }
+        if (GlobalVariables.currentBoss == "Hermes" && GlobalVariables.currentLevel % 3 == 2)
+        {
+            fallTime = 0.6f;
+        }
     }
 
     // Update is called once per frame
