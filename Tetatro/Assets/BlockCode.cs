@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-
+using Random = System.Random;
 public class BlockCode : MonoBehaviour
 {
     public Vector3 rotationPoint;//all tetris pieces have a set point they rotate around
@@ -12,6 +14,9 @@ public class BlockCode : MonoBehaviour
     public float fallTime = 0.8f;
     public static int height = 23;//grid size, if any blocks are placed in top 2, you lose.
     public static int width = 10;
+    public double scoreGain = 0;
+    public int rand = 0;
+    Random random = new Random();
     private static Transform[,] grid = new Transform[width, height]; //collision
     public AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,29 +70,87 @@ public class BlockCode : MonoBehaviour
                 { //placeblock
                     transform.position -= new Vector3(0, -1, 0);
                     AddToGrid();
+                    LinesCleared = CheckScore();
                     CheckForLines();
                     CheckIfDead();
+
                     if (LinesCleared == 1)
                     {
-                        Scoring.instance.AddPoint(40);
+                        scoreGain = 40;
+                        if (GlobalVariables.items.Contains("MinMaxTet"))
+                        {
+                            scoreGain /= 10;
+                        }
+                        if (GlobalVariables.items.Contains("InARowBonus"))
+                        {
+                            scoreGain *= GlobalVariables.chain;
+                        }
+                        if (GlobalVariables.items.Contains("SingleChain"))
+                        {
+                            scoreGain *= GlobalVariables.sChain;
+                        }
+                        scoreGain *= GlobalVariables.baseMult * GlobalVariables.singleMult;
+                        Scoring.instance.AddPoint((int)scoreGain);
                         GlobalVariables.clearedLines += 1;
 
                     }
                     else if (LinesCleared == 2)
                     {
-                        Scoring.instance.AddPoint(100);
+                        scoreGain = 100;
+                        if (GlobalVariables.items.Contains("MinMaxTet"))
+                        {
+                            scoreGain /= 10;
+                        }
+                        if (GlobalVariables.items.Contains("InARowBonus"))
+                        {
+                            scoreGain *= GlobalVariables.chain;
+                        }
+                        if (GlobalVariables.items.Contains("SingleChain") && GlobalVariables.items.Contains("2Singles"))
+                        {
+                            scoreGain *= GlobalVariables.sChain;
+                        }
+                        scoreGain *= GlobalVariables.baseMult * GlobalVariables.doubleMult;
+                        Scoring.instance.AddPoint((int)scoreGain);
                         GlobalVariables.clearedLines += 2;
 
                     }
                     else if (LinesCleared == 3)
                     {
-                        Scoring.instance.AddPoint(300);
+                        scoreGain = 300;
+                        if (GlobalVariables.items.Contains("MinMaxTet"))
+                        {
+                            scoreGain /= 10;
+                        }
+                        if (GlobalVariables.items.Contains("InARowBonus"))
+                        {
+                            scoreGain *= GlobalVariables.chain;
+                        }
+                        if (GlobalVariables.items.Contains("TripleTriple"))
+                        {
+                            rand = random.Next(0, 3);
+                            if (rand == 2)
+                            {
+                                scoreGain *= 3;
+                            }
+                        }
+                        scoreGain *= GlobalVariables.baseMult * GlobalVariables.tripleMult;
+                        Scoring.instance.AddPoint((int)scoreGain);
                         GlobalVariables.clearedLines += 3;
 
                     }
                     else if (LinesCleared == 4)
                     {
-                        Scoring.instance.AddPoint(1200);
+                        scoreGain = 1200;
+                        if (GlobalVariables.items.Contains("MinMaxTet"))
+                        {
+                            scoreGain *= 3;
+                        }
+                        if (GlobalVariables.items.Contains("InARowBonus"))
+                        {
+                            scoreGain *= GlobalVariables.chain;
+                        }
+                        scoreGain *= GlobalVariables.baseMult * GlobalVariables.tetrisMult;
+                        Scoring.instance.AddPoint((int)scoreGain);
                         GlobalVariables.clearedLines += 4;
 
                     }
@@ -107,7 +170,31 @@ public class BlockCode : MonoBehaviour
                         GlobalVariables.gamespeedMult /= 100;
                         GlobalVariables.clearedLines -= 10;
                     }
+
+                    if (LinesCleared > 0)
+                    {
+                        GlobalVariables.chain += .5;
+                        if (LinesCleared == 1 || LinesCleared == 2 && GlobalVariables.items.Contains("2Singles"))
+                        {
+                            GlobalVariables.sChain += 1;
+                            if (LinesCleared == 2 && GlobalVariables.items.Contains("2Singles"))
+                            {
+                                GlobalVariables.sChain += 1;
+                            }
+                        }
+                        else
+                        {
+                            GlobalVariables.sChain = 1;
+                        }
+                    }
+                    else
+                    {
+                        GlobalVariables.chain = 1;
+                        GlobalVariables.sChain = 1;
+                    }
+
                     LinesCleared = 0;
+                    scoreGain = 0;
                     IsPlacedDown = true;
                     audioSource.Play();
                     FindObjectOfType<SpawnBlock>().NewBlock();
@@ -145,25 +232,86 @@ public class BlockCode : MonoBehaviour
                         LinesCleared = CheckScore();
                         CheckForLines();
                         CheckIfDead();
+
                         if (LinesCleared == 1)
                         {
-                            Scoring.instance.AddPoint(40);
+                            scoreGain = 40;
+                            if (GlobalVariables.items.Contains("MinMaxTet"))
+                            {
+                                scoreGain /= 10;
+                            }
+                            if (GlobalVariables.items.Contains("InARowBonus"))
+                            {
+                                scoreGain *= GlobalVariables.chain;
+                            }
+                            if (GlobalVariables.items.Contains("SingleChain"))
+                            {
+                                scoreGain *= GlobalVariables.sChain;
+                            }
+                            scoreGain *= GlobalVariables.baseMult * GlobalVariables.singleMult;
+                            Scoring.instance.AddPoint((int)scoreGain);
                             GlobalVariables.clearedLines += 1;
+
                         }
                         else if (LinesCleared == 2)
                         {
-                            Scoring.instance.AddPoint(100);
+                            scoreGain = 100;
+                            if (GlobalVariables.items.Contains("MinMaxTet"))
+                            {
+                                scoreGain /= 10;
+                            }
+                            if (GlobalVariables.items.Contains("InARowBonus"))
+                            {
+                                scoreGain *= GlobalVariables.chain;
+                            }
+                            if (GlobalVariables.items.Contains("SingleChain") && GlobalVariables.items.Contains("2Singles"))
+                            {
+                                scoreGain *= GlobalVariables.sChain;
+                            }
+                            scoreGain *= GlobalVariables.baseMult * GlobalVariables.doubleMult;
+                            Scoring.instance.AddPoint((int)scoreGain);
                             GlobalVariables.clearedLines += 2;
+
                         }
                         else if (LinesCleared == 3)
                         {
-                            Scoring.instance.AddPoint(300);
+                            scoreGain = 300;
+                            if (GlobalVariables.items.Contains("MinMaxTet"))
+                            {
+                                scoreGain /= 10;
+                            }
+                            if (GlobalVariables.items.Contains("InARowBonus"))
+                            {
+                                scoreGain *= GlobalVariables.chain;
+                            }
+                            if (GlobalVariables.items.Contains("TripleTriple"))
+                            {
+                                rand = random.Next(0, 3);
+                                if (rand == 2)
+                                {
+                                    scoreGain *= 3;
+                                }
+                            }
+                            scoreGain *= GlobalVariables.baseMult * GlobalVariables.tripleMult;
+                            Scoring.instance.AddPoint((int)scoreGain);
                             GlobalVariables.clearedLines += 3;
+
                         }
                         else if (LinesCleared == 4)
                         {
-                            Scoring.instance.AddPoint(1200);
+                            scoreGain = 1200;
+                            if (GlobalVariables.items.Contains("MinMaxTet"))
+                            {
+                                scoreGain *= 3;
+                            }
+                            if (GlobalVariables.items.Contains("InARowBonus"))
+                            {
+                                scoreGain *= GlobalVariables.chain;
+                            }
+                            scoreGain *= GlobalVariables.baseMult * GlobalVariables.tetrisMult;
+                            Scoring.instance.AddPoint((int)scoreGain);
                             GlobalVariables.clearedLines += 4;
+
                         }
                         if (GlobalVariables.clearedLines >= 10 && LinesCleared != 0)
                         {
@@ -184,11 +332,69 @@ public class BlockCode : MonoBehaviour
                             GlobalVariables.gamespeedMult /= 100;
                             GlobalVariables.clearedLines -= 10;
                         }
+
+                        if (LinesCleared > 0)
+                        {
+                            GlobalVariables.chain += .5;
+                            if (LinesCleared == 1 || LinesCleared == 2 && GlobalVariables.items.Contains("2Singles"))
+                            {
+                                GlobalVariables.sChain += 1;
+                                if (LinesCleared == 2 && GlobalVariables.items.Contains("2Singles"))
+                                {
+                                    GlobalVariables.sChain += 1;
+                                }
+                            }
+                            else
+                            {
+                                GlobalVariables.sChain = 1;
+                            }
+                        }
+                        else
+                        {
+                            GlobalVariables.chain = 1;
+                            GlobalVariables.sChain = 1;
+                        }
+
                         LinesCleared = 0;
+                        scoreGain = 0;
                         IsPlacedDown = true;
                         audioSource.Play();
                         FindObjectOfType<SpawnBlock>().NewBlock();
                     }
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (GlobalVariables.items.Contains("Nuke"))
+                {
+                    AddToGrid();
+                    NukeCheck();
+                    for (int i = height - 1; i >= 0; i--)
+                    {
+                        for (int j = 0; i < width; j++)
+                        {
+                            if (HasBlock(j, i))
+                            {
+                                scoreGain += 30;
+                            }
+                        }
+                    }
+                    scoreGain *= GlobalVariables.chain;
+                    scoreGain *= GlobalVariables.baseMult;
+                    for (int i = height - 1; i >= 0; i--)
+                    {
+                        if (LineNotEmpty(i))
+                        {
+                            GlobalVariables.chain += .5;
+                        }
+                    }
+                    IsPlacedDown = true;
+                    Scoring.instance.AddPoint((int)scoreGain);
+                    scoreGain = 0;
+                    GlobalVariables.items.Remove("Nuke");
+                    GlobalVariables.availableShopItems.Add("Nuke");
+                    FindObjectOfType<SpawnBlock>().NewBlock();
+                    IsPlacedDown = true;
                 }
             }
 
@@ -205,6 +411,42 @@ public class BlockCode : MonoBehaviour
                 RowDown(i);
             }
         }
+    }
+
+    void NukeCheck()
+    {
+        for (int i = height - 1; i >= 0; i--)
+        {
+            for (int j = 0; i < width; j++)
+            {
+                if (HasBlock(j, i))
+                {
+                    DeleteBlock(j,i);
+                }
+            }
+        }
+    }
+
+    bool HasBlock(int j, int i)
+    {
+            if (grid[j, i] != null)
+            {
+                return true;
+            }
+        return false;
+    }
+
+    bool LineNotEmpty(int i)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (grid[j, i] != null)
+            {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     bool HasLine(int i) //checks if a row is full
@@ -248,6 +490,11 @@ public class BlockCode : MonoBehaviour
         }
     }
 
+    void DeleteBlock(int j, int i)
+    { 
+        Destroy(grid[j, i].gameObject);
+        grid[j, i] = null;
+    }
 
 
     void RowDown(int i) // move rows down
