@@ -123,14 +123,14 @@ public class Scoring : MonoBehaviour
             }
         }
         //Debug.Log(GlobalVariables.gamespeedMult);
-        if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
+        /*if (Input.GetKeyDown(KeyCode.L)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
         {
             score = reqscore;
         }
         if (Input.GetKeyDown(KeyCode.C)) //debug tool so I don't have to play tetris for 20+ minutes to test a single variable.
         {
             GlobalVariables.cash += 1000;
-        }
+        }*/
         switch (GlobalVariables.gamespeedMult)
         {
             case 0f:
