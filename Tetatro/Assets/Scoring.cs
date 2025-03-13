@@ -44,12 +44,23 @@ public class Scoring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GlobalVariables.chain);
+        //Debug.Log(GlobalVariables.chain);
         if (GlobalVariables.timeInFrames < 12000) {
             GlobalVariables.timeInFrames += 1;
             //Debug.Log(GlobalVariables.timeInFrames);
         }
-
+        if (GlobalVariables.currentBoss == "Sisyphus" && GlobalVariables.currentLevel % 3 == 2) {
+            if (GlobalVariables.sisyphusFrames < 10800)
+            {
+                GlobalVariables.sisyphusFrames += 1;
+                if (GlobalVariables.sisyphusFrames == 10800)
+                {
+                    score = 0;
+                    scoreText.text = "Current Score: " + score.ToString();
+                    GlobalVariables.sisyphusFrames = 0;
+                }
+            }
+    }
             if (score >= reqscore)
         {
             /*GlobalVariables.totalLevel += 1;

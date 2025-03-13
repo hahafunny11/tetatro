@@ -36,7 +36,7 @@ public class BlockCode : MonoBehaviour
         }
         if (GlobalVariables.currentBoss == "Hermes" && GlobalVariables.currentLevel % 3 == 2)
         {
-            fallTime = 0.6f;
+            startFallTime = 0.6f;
         }
     }
 
@@ -195,6 +195,11 @@ public class BlockCode : MonoBehaviour
                         else
                         {
                             GlobalVariables.sChain = 1;
+                        }
+                        if (GlobalVariables.currentLevel % 3 == 2 & GlobalVariables.currentBoss == "Poseidon")
+                        {
+                            DeleteColumn(0);
+                            DeleteColumn(width-1);
                         }
                     }
                     else
@@ -363,6 +368,11 @@ public class BlockCode : MonoBehaviour
                             else
                             {
                                 GlobalVariables.sChain = 1;
+                            }
+                            if (GlobalVariables.currentLevel % 3 == 2 & GlobalVariables.currentBoss == "Poseidon")
+                            {
+                                DeleteColumn(0);
+                                DeleteColumn(width - 1);
                             }
                         }
                         else
@@ -533,6 +543,17 @@ public class BlockCode : MonoBehaviour
         }
     }
 
+    void DeleteColumn(int j)
+    {
+        for (int i = height - 1; i >= 0; i--)
+        {
+            if (grid[j, i] != null)
+            {
+                Destroy(grid[j, i].gameObject);
+                grid[j, i] = null;
+            }
+        }
+    }
 
     void RowDown(int i) // move rows down
     {

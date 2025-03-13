@@ -9,7 +9,8 @@ public class GlobalVariables
     public static int baseScoreReq = 600;
     public static int cash = 4;
     public static int timeInFrames = 0;
-    public static int bossCountdown = 3; //when 1, spawn boss, when 0, handle boss hashsets
+    public static int sisyphusFrames = 0;
+    public static int finalCountdown = 3;
 
     //public static int timeShave = 0;
     public static double baseMult = 1;
@@ -26,13 +27,13 @@ public class GlobalVariables
     //public static List<string> lineStacks = new List<string>() {"All", "Single", "Double", "Triple", "Tetris"};
     public static string[] toRemove = new string[] {"null", "null", "null" };
 
-    public static HashSet<string> bossGeneric = new HashSet<string>();
-    public static HashSet<string> bossFinal = new HashSet<string>();
+    public static List<string> bossGeneric = new List<string>();
+    public static List<string> bossFinal = new List<string>();
 
     public static string currentBoss = "";
 
     //these hashsets are for unionwiths
     public static HashSet<string> shopItems = new HashSet<string>() {"Nuke", "2Singles" ,"InARowBonus" ,"SingleChain" ,"TripleTriple" ,"MinMaxTet"};
-    public static HashSet<string> nonFinalBosses = new HashSet<string>() {"Hermes", "Hecate", "Aphrodite" };
+    public static HashSet<string> nonFinalBosses = new HashSet<string>() {"Hermes", "Poseidon", "Aphrodite" };
     public static HashSet<string> finalBosses = new HashSet<string>() {"Sisyphus"};
 }
