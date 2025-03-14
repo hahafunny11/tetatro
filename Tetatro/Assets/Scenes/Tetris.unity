@@ -976,6 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fae787f01fc1f44b4bf383e6d6550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
 --- !u!212 &1507366693
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1140,6 +1141,7 @@ GameObject:
   - component: {fileID: 1824971262}
   - component: {fileID: 1824971264}
   - component: {fileID: 1824971263}
+  - component: {fileID: 1824971265}
   m_Layer: 0
   m_Name: tetatro_bkgd_0
   m_TagString: Untagged
@@ -1229,7 +1231,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2dae65ab6e4cc484fa865dc98e2b4f69, type: 3}
   m_Resource: {fileID: 8300000, guid: 2dae65ab6e4cc484fa865dc98e2b4f69, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -1321,12 +1323,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824971259}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 14e1faf0b407f004a91de151527f7abc, type: 3}
   m_Resource: {fileID: 8300000, guid: 14e1faf0b407f004a91de151527f7abc, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -1418,12 +1420,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824971259}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e6bfde3a5596af04d8cff91f6d1ccdd2, type: 3}
   m_Resource: {fileID: 8300000, guid: e6bfde3a5596af04d8cff91f6d1ccdd2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -1508,6 +1510,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1824971265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824971259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8c5d581d94889488af5ed2e5916e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tet1: {fileID: 0}
+  tet2: {fileID: 0}
+  tetboss: {fileID: 0}
 --- !u!1 &1863467133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,6 +1614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fae787f01fc1f44b4bf383e6d6550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
 --- !u!212 &1919166057
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1697,6 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fae787f01fc1f44b4bf383e6d6550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
 --- !u!212 &1938678993
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1965,6 +1984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fae787f01fc1f44b4bf383e6d6550f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
 --- !u!212 &2112349831
 SpriteRenderer:
   m_ObjectHideFlags: 0
