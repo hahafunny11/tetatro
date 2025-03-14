@@ -27,6 +27,7 @@ public class GlobalVariables
     //public static List<string> lineStacks = new List<string>() {"All", "Single", "Double", "Triple", "Tetris"};
     public static string[] toRemove = new string[] {"null", "null", "null" };
     public static string[] currentShop = new string[] { "null", "null", "null" };
+    public static int slot = 0;
 
     public static List<string> bossGeneric = new List<string>();
     public static List<string> bossFinal = new List<string>();

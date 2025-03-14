@@ -141,6 +141,7 @@ public class ShopControls : MonoBehaviour
         GlobalVariables.currentShop[0] = slotsIdx[0];
         GlobalVariables.currentShop[1] = slotsIdx[1];
         GlobalVariables.currentShop[2] = slotsIdx[2];
+        GlobalVariables.slot = currentSlot;
         /*Debug.Log(GlobalVariables.gamespeedMult);
         if (GlobalVariables.cash >= shopCosts[currentSlot] && currentSlot != 3)
         {
